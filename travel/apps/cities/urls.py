@@ -2,7 +2,7 @@ from django.urls import path
 from .views import (home, CityDetailView, CityCreateView,
                     CityUpdateView, CityDeleteView)
 
-app_name = 'cities'
+app_name = "city"
 
 urlpatterns = [
     path('', home, name='home'),

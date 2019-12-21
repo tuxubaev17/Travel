@@ -1,34 +1,60 @@
 {% extends "base.html" %}
-{% block title%}Города {% endblock%}
+{% block title%}Поезда {% endblock%}
 
 {% block content%}
-    <h1 class="display-4 text-center my-4">Города</h1>
+    <h1 class="display-4 text-center my-4">Поезда</h1>
     <div class="row ">
-        <div class='col-md-6 mx-auto'>
+        <div class='col-md-8 mx-auto'>
             <table class="table table-striped">
+                 <thead>
+                <tr>
+                    <th> Номер поезда</th>
+                    <th> Откуда</th>
+                    <th> Куда</th>
+                    <th> Время в пути</th>
+                    <th> &nbsp;</th>
+                    <th> &nbsp;</th>
+                </tr>
+                </thead>
                 <tbody>
                 {% for object in objects_list%}
-                    <tr>
+
+                <tr>
                     <td>
-                        <a href='{% url "city:detail" pk=object.pk%}'>
+                        <a href='{% url "train:detail" pk=object.pk%}'>
                             {{object.name}}
                         </a>
                     </td>
                     <td>
-                        <a href='{% url "city:update" pk=object.pk%}'>
+
+                            {{object.from_city}}
+
+                    </td>
+                    <td>
+
+                            {{object.to_city}}
+
+                    </td>
+                    <td>
+
+                            {{object.travel_time}} ч
+
+                    </td>
+                    <td>
+                        <a href='{% url "train:update" pk=object.pk%}'>
                             <button type="button" class="btn btn-primary btn-sm">
                                 Редактировать
                             </button>
                         </a>
                     </td>
                     <td>
-                        <a href='{% url "city:delete" pk=object.pk%}'>
+                        <a href='{% url "train:delete" pk=object.pk%}'>
                             <button type="button" class="btn btn-danger btn-sm">
                                 Удалить
                             </button>
                         </a>
                     </td>
-                    </tr>
+                </tr>
 
                 {% endfor %}
                 </tbody>
@@ -77,7 +103,6 @@
                                 </a>
                                 </li>
                             {% else %}
-
                             {% endif %}
                         </ul>
                     </nav>
@@ -87,17 +112,12 @@
     </div>
     <div class="row">
         <div class='col-md-6'>
-             <a href='{% url "city:add" %}'>
+             <a href='{% url "train:add" %}'>
                 <button type="button" class="btn btn-info btn-sm">
-                    Добавить новый город
+                    Добавить новый Поезд
                 </button>
             </a>
         </div>
     </div>
-
 {% endblock%}
-<form action="" method="post"> {% csrf_token %}
- {{form.as_p}}
- <br>
-  <input type="submit" value="Сохранить">
-</form>
+

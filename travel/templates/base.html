@@ -1,4 +1,8 @@
-{% url 'cities:home' as cities_home_url %}
+{% url 'city:home' as cities_home_url %}
+{% url 'train:home' as trains_home_url %}
+{% url 'train:add' as trains_add_url %}
+{% url 'city:add' as city_add_url %}
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -6,20 +10,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <title>{% block title %}{% endblock title %}</title>
   </head>
   <body>
-<!--     <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">-->
-<!--      <h5 class="my-0 mr-md-auto font-weight-normal">Travelling</h5>-->
-<!--      <nav class="my-2 my-md-0 mr-md-3">-->
-<!--        <a class="p-2 text-dark" href="{% url 'cities:home' %}">Города</a>-->
-<!--        <a class="p-2 text-dark" href="#">Enterprise</a>-->
-<!--        <a class="p-2 text-dark" href="#">Support</a>-->
-<!--        <a class="p-2 text-dark" href="#">Pricing</a>-->
-<!--      </nav>-->
-<!--      <a class="btn btn-outline-primary" href="#">Sign up</a>-->
-<!--    </div>-->
     <div class="container">
       <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom shadow-sm">
       <a class="navbar-brand" href="/">Navbar</a>
@@ -29,22 +23,22 @@
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item {% if request.path == cities_home_url %} active  {% endif %}">
-            <a class="nav-link" href="{% url 'cities:home' %}">Города <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="{% url 'city:home' %}">Города <span class="sr-only">(current)</span></a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Feautures</a>
+          <li class="nav-item {% if request.path == trains_home_url %} active  {% endif %}">
+            <a class="nav-link" href="{% url 'train:home' %}">Поезда</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">Pricing</a>
           </li>
-          <li class="nav-item dropdown">
+          <li class="nav-item dropdown {% if request.path == trains_add_url or request.path == city_add_url %} active  {% endif %}">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Dropdown link
+              Добавить
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
+              <a class="dropdown-item" href="{% url 'city:add' %}">Новый город</a>
+              <a class="dropdown-item" href="{% url 'train:add' %}">Новый поезд</a>
+<!--              <a class="dropdown-item" href="#">Something else here</a>-->
             </div>
           </li>
         </ul>
@@ -81,7 +75,7 @@
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
   </body>
 </html>

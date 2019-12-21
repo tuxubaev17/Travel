@@ -15,8 +15,7 @@ def home(request):
     paginator = Paginator(cities, 2)
     page = request.GET.get('page')
     cities = paginator.get_page(page)
-    return render(request, 'cities/home.html', {'objects_list': cities})
-
+    return render(request, 'cities/home.html', {'objects_list': cities, })
 
 class CityDetailView(DetailView):
     model = City
@@ -29,7 +28,7 @@ class CityCreateView(SuccessMessageMixin,CreateView):
     model = City
     form_class = CityForm
     template_name = 'cities/create.html'
-    success_url = reverse_lazy('cities:home')
+    success_url = reverse_lazy('city:home')
     success_message = 'Город успешно создан!'
 
 
@@ -37,14 +36,14 @@ class CityUpdateView(SuccessMessageMixin,UpdateView):
     model = City
     form_class = CityForm
     template_name = 'cities/update.html'
-    success_url = reverse_lazy('cities:home')
+    success_url = reverse_lazy('city:home')
     success_message = 'Город успешно изменен!'
 
 
 class CityDeleteView(DeleteView):
     model = City
     template_name = 'cities/delete.html'
-    success_url = reverse_lazy('cities:home')
+    success_url = reverse_lazy('city:home')
 
     def get(self, request, *args, **kwargs):
         messages.success(request, 'Город успешно удален!')
