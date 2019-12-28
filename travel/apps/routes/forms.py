@@ -17,7 +17,7 @@ class RouteForm(forms.Form):
                                                        attrs={'class': 'form-control js-example-basic-multiple'}
                                                    ))
 
-    traveling_time = forms.IntegerField(label='Время в пути', widget=forms.NumberInput(
+    travelling_time = forms.IntegerField(label='Время в пути', widget=forms.NumberInput(
         attrs={'class': 'form-control',
                'placeholder': 'Время в пути'}
     ))
