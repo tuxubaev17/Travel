@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .forms import *
 from django.contrib import messages
 from trains.models import Train
@@ -108,3 +108,23 @@ def find_routes(request):
         messages.error(request, 'Создайте маршрут')
         form = RouteForm()
         return render(request, 'routes/home.html', {'form': form})
+
+
+def add_route(request):
+    if request.method == 'POST':
+        pass
+    else:
+        data = request.GET
+        if data:
+            travel_times = data['travel_times']
+            from_city = data['from_city']
+            to_city = data['to_city']
+            across_cities = data['across_cities'].split(' ')
+            trains = [int(x) for x in across_cities if x.isalnum()]
+            qs = Train.objects.filter(id__in=trains)
+
+            # assert False
+            return render(request, 'routes/create.html')
+        else:
+            messages.error(request, 'Не возможно созранить не существующий маршрут')
+            return redirect('/')
