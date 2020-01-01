@@ -112,7 +112,22 @@ def find_routes(request):
 
 def add_route(request):
     if request.method == 'POST':
-        pass
+        form = RouteModelForm(request.POST or None)
+        if form.is_valid():
+            data = form.cleaned_data
+            name = data['name']
+            travel_times = data['travel_times']
+            from_city = data['from_city']
+            to_city = data['to_city']
+            across_cities = data['across_cities'].split(' ')
+            trains = [int(x) for x in across_cities if x.isalnum()]
+            qs = Train.objects.filter(id__in=trains)
+            route = Route(name=name, from_city=from_city, to_city=to_city, travel_times=travel_times)
+            route.save()
+            for tr in qs:
+                route.across_cities.add(tr.id)
+                messages.success(request, 'Маршрут успешно сохранен')
+                return redirect('/')
     else:
         data = request.GET
         if data:
@@ -122,9 +137,20 @@ def add_route(request):
             across_cities = data['across_cities'].split(' ')
             trains = [int(x) for x in across_cities if x.isalnum()]
             qs = Train.objects.filter(id__in=trains)
+            train_list = ' '.join(str(i) for i in trains)
+            form = RouteModelForm(initial={'from_city': from_city, 'to_city': to_city, 'travel_times': travel_times,
+                                           'across_cities': train_list})
+            route_desc = []
+            for tr in qs:
+                dsc = 'Поезд №{}  следущий из г.{} в г.{}. Время в пути {}ч.'.format(tr.name,
+                                                                                    tr.from_city,
+                                                                                    tr.to_city,
+                                                                                    tr.travel_time)
+                route_desc.append(dsc)
 
+            context = {'form': form, 'desc': route_desc, 'from_city': from_city, 'to_city': to_city, 'travel_times': travel_times}
             # assert False
-            return render(request, 'routes/create.html')
+            return render(request, 'routes/create.html', context)
         else:
             messages.error(request, 'Не возможно созранить не существующий маршрут')
             return redirect('/')
