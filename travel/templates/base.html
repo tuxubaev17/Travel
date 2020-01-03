@@ -1,9 +1,10 @@
 {% url 'city:home' as cities_home_url %}
 {% url 'train:home' as trains_home_url %}
+{% url 'list' as route_list_url %}
 {% url 'train:add' as trains_add_url %}
 {% url 'city:add' as city_add_url %}
 
-<!doctype html>
+<!Doctype html>
 <html lang="en">
   <head>
     <!-- Required meta tags -->
@@ -17,7 +18,7 @@
   <body>
     <div class="container">
       <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom shadow-sm">
-      <a class="navbar-brand" href="{% url 'home' %}">Маршруты</a>
+      <a class="navbar-brand" href="{% url 'home' %}">Travel</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -29,10 +30,10 @@
           <li class="nav-item {% if request.path == trains_home_url %} active  {% endif %}">
             <a class="nav-link" href="{% url 'train:home' %}">Поезда</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Pricing</a>
+          <li class="nav-item {% if request.path == route_list_url %} active  {% endif %} ">
+            <a class="nav-link" href="{% url 'list' %}">Маршруты</a>
           </li>
-          <li class="nav-item dropdown {% if request.path == trains_add_url or request.path == city_add_url %} active  {% endif %}">
+          <li class="nav-item dropdown {% if request.path == trains_add_url or request.path == city_add_url %} active {% endif %}">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Добавить
             </a>

@@ -1,7 +1,12 @@
 from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
+
 from .forms import *
 from django.contrib import messages
 from trains.models import Train
+from django.views.generic.detail import DetailView
+from django.views.generic.list import ListView
+from django.views.generic.edit import DeleteView
 
 
 def dfs_paths(graph, start, goal):
@@ -122,12 +127,13 @@ def add_route(request):
             across_cities = data['across_cities'].split(' ')
             trains = [int(x) for x in across_cities if x.isalnum()]
             qs = Train.objects.filter(id__in=trains)
-            route = Route(name=name, from_city=from_city, to_city=to_city, travel_times=travel_times)
+            route = Route(name=name, from_city=from_city,
+                          to_city=to_city, travel_times=travel_times)
             route.save()
             for tr in qs:
                 route.across_cities.add(tr.id)
-                messages.success(request, 'Маршрут успешно сохранен')
-                return redirect('/')
+            messages.success(request, 'Маршрут был успешно сохранен.')
+            return redirect('/')
     else:
         data = request.GET
         if data:
@@ -138,19 +144,43 @@ def add_route(request):
             trains = [int(x) for x in across_cities if x.isalnum()]
             qs = Train.objects.filter(id__in=trains)
             train_list = ' '.join(str(i) for i in trains)
-            form = RouteModelForm(initial={'from_city': from_city, 'to_city': to_city, 'travel_times': travel_times,
+            form = RouteModelForm(initial={'from_city': from_city,
+                                           'to_city': to_city,
+                                           'travel_times': travel_times,
                                            'across_cities': train_list})
             route_desc = []
             for tr in qs:
-                dsc = 'Поезд №{}  следущий из г.{} в г.{}. Время в пути {}ч.'.format(tr.name,
-                                                                                    tr.from_city,
-                                                                                    tr.to_city,
-                                                                                    tr.travel_time)
+                dsc = '''Поезд №{}  следующий из г.{} в г.{} 
+                    . Время в пути {}.'''.format(tr.name, tr.from_city,
+                                                 tr.to_city, tr.travel_time)
                 route_desc.append(dsc)
-
-            context = {'form': form, 'desc': route_desc, 'from_city': from_city, 'to_city': to_city, 'travel_times': travel_times}
+            context = {'form': form, 'descr': route_desc,
+                       'from_city': from_city,
+                       'to_city': to_city,
+                       'travel_times': travel_times}
             # assert False
             return render(request, 'routes/create.html', context)
         else:
-            messages.error(request, 'Не возможно созранить не существующий маршрут')
+            messages.error(request, 'Невозможно сохранить несуществующий маршрут')
             return redirect('/')
+
+
+class RouteDetailView(DetailView):
+    queryset = Route.objects.all()
+    context_object_name = 'object'
+    template_name = 'routes/detail.html'
+
+
+class RouteListView(ListView):
+    queryset = Route.objects.all()
+    context_object_name = 'objects_list'
+    template_name = 'routes/list.html'
+
+
+class RouteDeleteView(DeleteView):
+    model = Route
+    success_url = reverse_lazy('home')
+
+    def get(self, request, *args, **kwargs):
+        messages.success(request, 'Маршрут успешно удален!')
+        return self.post(request, *args, **kwargs)
