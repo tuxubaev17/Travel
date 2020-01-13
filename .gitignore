@@ -89,4 +89,5 @@ local.py
 .env
 db.sqlite3
 settings/local.py
-Â.local.py
+.local.py
+Procfile
