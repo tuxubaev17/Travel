@@ -90,3 +90,5 @@ local.py
 db.sqlite3
 settings/local.py
 
+
+src/travel/settings/local.py
