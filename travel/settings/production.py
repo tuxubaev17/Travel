@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 import os, sys
 
 DB_NAME = os.environ.get('DB_NAME')
-DB_PASSWORD = os.environ('DB_PASSWORD')
+DB_PASSWORD = os.environ.get('DB_PASSWORD')
 DB_USER = os.environ.get('DB_USER')
 DB_HOST = os.environ.get('DB_HOST')
 
