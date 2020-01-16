@@ -1,0 +1,124 @@
+[
+{
+    "model": "cities.city",
+    "pk": 10,
+    "fields": {
+        "name": "\u041c\u043e\u0441\u043a\u0432\u0430"
+    }
+},
+{
+    "model": "cities.city",
+    "pk": 12,
+    "fields": {
+        "name": "\u041a\u0438\u0435\u0432"
+    }
+},
+{
+    "model": "cities.city",
+    "pk": 13,
+    "fields": {
+        "name": "\u0410\u043a\u0442\u043e\u0431\u0435"
+    }
+},
+{
+    "model": "cities.city",
+    "pk": 14,
+    "fields": {
+        "name": "\u0410\u043b\u043c\u0430\u0442\u044b"
+    }
+},
+{
+    "model": "cities.city",
+    "pk": 16,
+    "fields": {
+        "name": "\u0410\u0441\u0442\u0430\u043d\u0430"
+    }
+},
+{
+    "model": "cities.city",
+    "pk": 17,
+    "fields": {
+        "name": "\u0412\u0438\u043d\u0438\u0446\u0430"
+    }
+},
+{
+    "model": "cities.city",
+    "pk": 18,
+    "fields": {
+        "name": "\u0425\u0430\u0440\u044c\u043a\u043e\u0432"
+    }
+},
+{
+    "model": "routes.route",
+    "pk": 4,
+    "fields": {
+        "name": "KIEV-ALA",
+        "from_city": "\u041a\u0438\u0435\u0432",
+        "to_city": "\u0410\u043b\u043c\u0430\u0442\u044b",
+        "travel_times": 48,
+        "across_cities": [
+            9
+        ]
+    }
+},
+{
+    "model": "trains.train",
+    "pk": 3,
+    "fields": {
+        "name": "tr3",
+        "from_city": 14,
+        "to_city": 13,
+        "travel_time": 28
+    }
+},
+{
+    "model": "trains.train",
+    "pk": 4,
+    "fields": {
+        "name": "tr4",
+        "from_city": 13,
+        "to_city": 14,
+        "travel_time": 28
+    }
+},
+{
+    "model": "trains.train",
+    "pk": 7,
+    "fields": {
+        "name": "tr5",
+        "from_city": 16,
+        "to_city": 10,
+        "travel_time": 48
+    }
+},
+{
+    "model": "trains.train",
+    "pk": 8,
+    "fields": {
+        "name": "trr1",
+        "from_city": 13,
+        "to_city": 16,
+        "travel_time": 24
+    }
+},
+{
+    "model": "trains.train",
+    "pk": 9,
+    "fields": {
+        "name": "trr2",
+        "from_city": 12,
+        "to_city": 14,
+        "travel_time": 48
+    }
+},
+{
+    "model": "trains.train",
+    "pk": 10,
+    "fields": {
+        "name": "trr3",
+        "from_city": 14,
+        "to_city": 16,
+        "travel_time": 16
+    }
+}
+]
